@@ -1,0 +1,21 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "GRSNSSUBSCRIPTIONPOLICY",
+      "Effect": "Deny",
+      "Action": [
+        "sns:Subscribe",
+        "sns:Unsubscribe"
+      ],
+      "Resource": [
+        "arn:aws:sns:*:*:aws-controltower-SecurityNotifications"
+      ],
+      "Condition": {
+        "ArnNotLike": {
+          "aws:PrincipalARN":"arn:aws:iam::*:role/AWSControlTowerExecution"
+        }
+      }
+    }
+  ]
+}

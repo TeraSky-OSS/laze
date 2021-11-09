@@ -1,0 +1,19 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+      {
+          "Sid": "GRCTAUDITBUCKETPOLICYCHANGESPROHIBITED",
+          "Effect": "Deny",
+          "Action": [
+              "s3:PutBucketPolicy",
+              "s3:DeleteBucketPolicy"
+          ],
+          "Resource": ["arn:aws:s3:::aws-controltower*"],
+          "Condition": {
+              "ArnNotLike": {
+                  "aws:PrincipalARN":"arn:aws:iam::*:role/AWSControlTowerExecution"
+              }
+          }
+      }
+  ]
+}

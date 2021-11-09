@@ -1,0 +1,18 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+      {
+          "Sid": "GRAUDITBUCKETPOLICYCHANGESPROHIBITED",
+          "Effect": "Deny",
+          "Action": [
+              "s3:PutBucketPolicy"
+          ],
+          "Resource": ["*"],
+          "Condition": {
+              "ArnNotLike": {
+                  "aws:PrincipalARN":"arn:aws:iam::*:role/AWSControlTowerExecution"
+              }
+          }
+      }
+  ]
+}

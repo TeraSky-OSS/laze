@@ -1,0 +1,20 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "GRAUDITBUCKETDELETIONPROHIBITED",
+      "Effect": "Deny",
+      "Action": [
+        "s3:DeleteBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::aws-controltower*"
+      ],
+      "Condition": {
+        "ArnNotLike": {
+          "aws:PrincipalARN":"arn:aws:iam::*:role/AWSControlTowerExecution"
+        }
+      }
+    }
+  ]
+}

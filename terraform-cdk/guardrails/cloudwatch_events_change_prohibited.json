@@ -1,0 +1,24 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "GRCLOUDWATCHEVENTPOLICY",
+      "Effect": "Deny",
+      "Action": [
+        "events:PutRule",
+        "events:PutTargets",
+        "events:RemoveTargets",
+        "events:DisableRule",
+        "events:DeleteRule"
+      ],
+      "Resource": [
+        "arn:aws:events:*:*:rule/aws-controltower-*"
+      ],
+      "Condition": {
+        "ArnNotLike": {
+          "aws:PrincipalARN": "arn:aws:iam::*:role/AWSControlTowerExecution"
+        }
+      }
+    }
+  ]
+}

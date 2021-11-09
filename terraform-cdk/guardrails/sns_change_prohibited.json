@@ -1,0 +1,24 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "GRSNSTOPICPOLICY",
+      "Effect": "Deny",
+      "Action": [
+        "sns:AddPermission",
+        "sns:CreateTopic",
+        "sns:DeleteTopic",
+        "sns:RemovePermission",
+        "sns:SetTopicAttributes"
+      ],
+      "Resource": [
+        "arn:aws:sns:*:*:aws-controltower-*"
+      ],
+      "Condition": {
+        "ArnNotLike": {
+          "aws:PrincipalARN":"arn:aws:iam::*:role/AWSControlTowerExecution"
+        }
+      }
+    }
+  ]
+}

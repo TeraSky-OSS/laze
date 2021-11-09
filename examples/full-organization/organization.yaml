@@ -1,0 +1,179 @@
+region: us-east-1
+aws_profile: ts-laze-mgmt
+create_organization: true
+root_account_alias: terasky-laze-mgmt
+
+global_tags:
+  Environment: test
+  Owner: Daniel Vaknin
+
+policies:
+  - name: scp_x
+    type: SERVICE_CONTROL_POLICY
+    content_inline: |
+      {
+        "Version": "2012-10-17",
+        "Statement": {
+          "Effect": "Allow",
+          "Action": "*",
+          "Resource": "*"
+        }
+      }
+  - name: scp_y
+    type: SERVICE_CONTROL_POLICY
+    content_from_file: allow-all-policy.json
+
+organizational_units:
+  - name: Security
+  - name: prod
+    policies:
+      - scp_x
+      - scp_y
+  - name: dev
+    policies:
+      - scp_y
+  - name: prod_nested
+    parent_ou: prod
+
+accounts:
+  - name: Audit Account
+    email: aws-laze-audit@terasky.com
+    ou: Security
+    roles:
+      - audit
+  - name: Log Archive
+    email: aws-laze-log-archive@terasky.com
+    ou: Security
+    roles:
+      - log_archive
+  - name: TeraSky LAZE Project 01
+    email: aws-laze-project-01@terasky.com
+    ou: prod
+    policies:
+      - scp_x
+    network:
+      create: true
+      name: laze-vpc
+      vpc_cidr: 21.0.0.0/16
+      public_subnets: [21.0.1.0/24, 21.0.2.0/24, 21.0.3.0/24]
+      private_subnets: [21.0.101.0/24, 21.0.102.0/24, 21.0.103.0/24]
+  - name: TeraSky LAZE Project 02
+    email: aws-laze-project-02@terasky.com
+    ou: prod
+    policies:
+      - scp_x
+    network:
+      create: true
+      name: laze-vpc
+      vpc_cidr: 20.0.0.0/16
+      public_subnets: [20.0.1.0/24, 20.0.2.0/24, 20.0.3.0/24]
+      private_subnets: [20.0.101.0/24, 20.0.102.0/24, 20.0.103.0/24]
+  - name: TeraSky LAZE Project 03
+    email: aws-laze-project-03@terasky.com
+    ou: prod
+    policies:
+      - scp_x
+    network:
+      create: true
+      name: laze-vpc
+      vpc_cidr: 20.0.0.0/16
+      public_subnets: [20.0.1.0/24, 20.0.2.0/24, 20.0.3.0/24]
+      private_subnets: [20.0.101.0/24, 20.0.102.0/24, 20.0.103.0/24]
+  - name: TeraSky LAZE Project 04
+    email: aws-laze-project-04@terasky.com
+    ou: prod
+    policies:
+      - scp_x
+    network:
+      create: true
+      name: laze-vpc
+      vpc_cidr: 20.0.0.0/16
+      public_subnets: [20.0.1.0/24, 20.0.2.0/24, 20.0.3.0/24]
+      private_subnets: [20.0.101.0/24, 20.0.102.0/24, 20.0.103.0/24]
+  - name: TeraSky LAZE Project 05
+    email: aws-laze-project-05@terasky.com
+    ou: prod
+    policies:
+      - scp_x
+    network:
+      create: true
+      name: laze-vpc
+      vpc_cidr: 20.0.0.0/16
+      public_subnets: [20.0.1.0/24, 20.0.2.0/24, 20.0.3.0/24]
+      private_subnets: [20.0.101.0/24, 20.0.102.0/24, 20.0.103.0/24]
+  # - name: TeraSky LAZE Project 06
+  #   email: aws-laze-project-06@terasky.com
+  #   ou: prod
+  #   policies:
+  #     - scp_x
+  #   network:
+  #     create: true
+  #     name: laze-vpc
+  #     vpc_cidr: 20.0.0.0/16
+  #     public_subnets: [20.0.1.0/24, 20.0.2.0/24, 20.0.3.0/24]
+  #     private_subnets: [20.0.101.0/24, 20.0.102.0/24, 20.0.103.0/24]
+  - name: TeraSky LAZE Project 07
+    email: aws-laze-project-07@terasky.com
+    ou: dev
+    policies:
+      - scp_x
+    network:
+      create: false
+  # - name: TeraSky LAZE Project 08
+  #   email: aws-laze-project-08@terasky.com
+  #   ou: dev
+  #   policies:
+  #     - scp_y
+  #   network:
+  #     create: true
+  #     name: laze-vpc
+  #     vpc_cidr: 20.0.0.0/16
+  #     public_subnets: [20.0.1.0/24, 20.0.2.0/24, 20.0.3.0/24]
+  #     private_subnets: [20.0.101.0/24, 20.0.102.0/24, 20.0.103.0/24]
+  - name: TeraSky LAZE Project 09
+    email: aws-laze-project-09@terasky.com
+    ou: dev
+    policies:
+      - scp_x
+    network:
+      create: true
+      name: laze-vpc
+      vpc_cidr: 20.0.0.0/16
+      public_subnets: [20.0.1.0/24, 20.0.2.0/24, 20.0.3.0/24]
+      private_subnets: [20.0.101.0/24, 20.0.102.0/24, 20.0.103.0/24]
+  # - name: TeraSky LAZE Project 10
+  #   email: aws-laze-project-10@terasky.com
+  #   ou: prod
+  #   policies:
+  #     - scp_x
+  #   network:
+  #     create: true
+  #     name: laze-vpc
+  #     vpc_cidr: 20.0.0.0/16
+  #     public_subnets: [20.0.1.0/24, 20.0.2.0/24, 20.0.3.0/24]
+  #     private_subnets: [20.0.101.0/24, 20.0.102.0/24, 20.0.103.0/24]
+
+tf_modules:
+  - name: test-s3-1
+    source: terraform-aws-modules/s3-bucket/aws
+    version: 2.9.0
+    variables:
+      bucket_prefix: ts-laze-
+      acl: private
+    accounts:
+      - TeraSky LAZE Project 01
+      - TeraSky LAZE Project 02
+      - TeraSky LAZE Project 03
+      - TeraSky LAZE Project 04
+      - TeraSky LAZE Project 05
+  - name: test-s3-2
+    source: terraform-aws-modules/s3-bucket/aws
+    version: 2.9.0
+    variables:
+      bucket_prefix: ts-laze-
+      acl: private
+    accounts:
+      # - TeraSky LAZE Project 06
+      - TeraSky LAZE Project 07
+      # - TeraSky LAZE Project 08
+      - TeraSky LAZE Project 09

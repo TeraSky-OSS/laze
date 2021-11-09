@@ -1,0 +1,18 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+      {
+          "Sid": "GRAUDITBUCKETLOGGINGENABLED",
+          "Effect": "Deny",
+          "Action": [
+              "s3:PutBucketLogging"
+          ],
+          "Resource": ["*"],
+          "Condition": {
+              "ArnNotLike": {
+                  "aws:PrincipalARN":"arn:aws:iam::*:role/AWSControlTowerExecution"
+              }
+          }
+      }
+  ]
+}

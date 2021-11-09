@@ -1,0 +1,18 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+      {
+          "Sid": "GRCTAUDITBUCKETLIFECYCLECONFIGURATIONCHANGESPROHIBITED",
+          "Effect": "Deny",
+          "Action": [
+              "s3:PutLifecycleConfiguration"
+          ],
+          "Resource": ["arn:aws:s3:::aws-controltower*"],
+          "Condition": {
+              "ArnNotLike": {
+                  "aws:PrincipalARN":"arn:aws:iam::*:role/AWSControlTowerExecution"
+              }
+          }
+      }
+  ]
+}

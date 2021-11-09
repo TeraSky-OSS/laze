@@ -1,0 +1,23 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "GRCONFIGAGGREGATIONAUTHORIZATIONPOLICY",
+      "Effect": "Deny",
+      "Action": [
+        "config:DeleteAggregationAuthorization"
+      ],
+      "Resource": [
+        "arn:aws:config:*:*:aggregation-authorization*"
+      ],
+      "Condition": {
+        "ArnNotLike": {
+          "aws:PrincipalArn": "arn:aws:iam::*:role/AWSControlTowerExecution"
+        },
+        "StringLike": {
+          "aws:ResourceTag/aws-control-tower": "managed-by-control-tower"
+        }
+      }
+    }
+  ]
+}

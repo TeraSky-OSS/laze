@@ -1,0 +1,25 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "GRCONFIGRULEPOLICY",
+      "Effect": "Deny",
+      "Action": [
+        "config:PutConfigRule",
+        "config:DeleteConfigRule",
+        "config:DeleteEvaluationResults",
+        "config:DeleteConfigurationAggregator",
+        "config:PutConfigurationAggregator"
+      ],
+      "Resource": ["*"],
+      "Condition": {
+        "ArnNotLike": {
+          "aws:PrincipalARN": "arn:aws:iam::*:role/AWSControlTowerExecution"
+        },
+        "StringEquals": {
+          "aws:ResourceTag/aws-control-tower": "managed-by-control-tower"
+        }
+      }
+    }
+  ]
+}

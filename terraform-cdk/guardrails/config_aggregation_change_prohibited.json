@@ -1,0 +1,22 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "GRCONFIGRULETAGSPOLICY",
+      "Effect": "Deny",
+      "Action": [
+        "config:TagResource",
+        "config:UntagResource"
+      ],
+      "Resource": ["*"],
+      "Condition": {
+        "ArnNotLike": {
+          "aws:PrincipalARN": "arn:aws:iam::*:role/AWSControlTowerExecution"
+        },
+        "ForAllValues:StringEquals": {
+          "aws:TagKeys": "aws-control-tower"
+        }
+      }
+    }
+  ]
+}

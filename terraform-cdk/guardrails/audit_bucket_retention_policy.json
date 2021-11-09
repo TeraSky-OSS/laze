@@ -1,0 +1,18 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+      {
+          "Sid": "GRAUDITBUCKETRETENTIONPOLICY",
+          "Effect": "Deny",
+          "Action": [
+              "s3:PutLifecycleConfiguration"
+          ],
+          "Resource": ["*"],
+          "Condition": {
+              "ArnNotLike": {
+                  "aws:PrincipalARN":"arn:aws:iam::*:role/AWSControlTowerExecution"
+              }
+          }
+      }
+  ]
+}

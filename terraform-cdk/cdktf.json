@@ -1,0 +1,18 @@
+{
+  "language": "python",
+  "app": "python3 ./main.py",
+  "terraformProviders": [
+    {
+      "name": "aws",
+      "source": "hashicorp/aws",
+      "version": "~> 3.45"
+    }
+  ],
+  "terraformModules": [],
+  "codeMakerOutput": "imports",
+  "context": {
+    "excludeStackIdFromLogicalIds": "true",
+    "allowSepCharsInLogicalIds": "true"
+  },
+  "projectId": "8012def4-112d-4578-b326-2653bec55e9f"
+}
