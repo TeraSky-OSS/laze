@@ -34,6 +34,8 @@ organizational_units:
       - scp_y
   - name: prod_nested
     parent_ou: prod
+  - name: dev_project_a
+    parent_ou: dev
 
 accounts:
   - name: Audit Account
@@ -101,17 +103,17 @@ accounts:
       vpc_cidr: 20.0.0.0/16
       public_subnets: [20.0.1.0/24, 20.0.2.0/24, 20.0.3.0/24]
       private_subnets: [20.0.101.0/24, 20.0.102.0/24, 20.0.103.0/24]
-  # - name: TeraSky LAZE Project 06
-  #   email: aws-laze-project-06@terasky.com
-  #   ou: prod
-  #   policies:
-  #     - scp_x
-  #   network:
-  #     create: true
-  #     name: laze-vpc
-  #     vpc_cidr: 20.0.0.0/16
-  #     public_subnets: [20.0.1.0/24, 20.0.2.0/24, 20.0.3.0/24]
-  #     private_subnets: [20.0.101.0/24, 20.0.102.0/24, 20.0.103.0/24]
+  - name: TeraSky LAZE Project 06
+    email: aws-laze-project-06@terasky.com
+    ou: dev_project_a
+    policies:
+      - scp_y
+    network:
+      create: true
+      name: vpc-project-a
+      vpc_cidr: 30.0.0.0/16
+      public_subnets: [30.0.1.0/24, 30.0.2.0/24, 30.0.3.0/24]
+      private_subnets: [30.0.101.0/24, 30.0.102.0/24, 30.0.103.0/24]
   - name: TeraSky LAZE Project 07
     email: aws-laze-project-07@terasky.com
     ou: dev
@@ -177,3 +179,13 @@ tf_modules:
       - TeraSky LAZE Project 07
       # - TeraSky LAZE Project 08
       - TeraSky LAZE Project 09
+  - name: project-a-iam-user
+    source: terraform-aws-modules/iam/aws//modules/iam-user
+    version: 4.24.1
+    variables:
+      name: "project-a-user"
+      create_iam_access_key: false
+      create_iam_user_login_profile: false
+      force_destroy: true
+    accounts:
+      - TeraSky LAZE Project 06

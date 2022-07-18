@@ -228,6 +228,7 @@ The example below will create a new organization with a few accounts and resourc
 cd terraform-cdk/
 pip install -r requirements.txt
 export CONFIG_FILE_PATH="../examples/full-organization/organization.yaml"
+cdktf diff
 cdktf deploy
 ```
 
